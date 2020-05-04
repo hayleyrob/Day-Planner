@@ -1,11 +1,9 @@
 let a = new Date()
 let b = Date.now()
 let ampm
-// console.log("abc " + x)
-// console.log(y)
 let userData = []
 
-for (let i = 0; i < 24; i++) {
+for (let i = 1; i < 24; i++) {
   (i > 12) ? ampm = 'PM' : ampm = "AM"
 
 
@@ -20,13 +18,9 @@ for (let i = 0; i < 24; i++) {
   document.getElementById('container').append(newElem)
 }
 
-
-// Query items 
 let timeList = document.querySelector('#container')
 let descList = timeList.querySelectorAll('#description')
 let hourList = timeList.querySelectorAll('.hour')
-
-
 
 document.addEventListener('click', (event) => {
   if (event.target.id === "saveBtn" && descList[event.target.dataset.btnindex].value.length > 0) {
@@ -42,27 +36,22 @@ document.addEventListener('click', (event) => {
     if (tempLength > 0 && tempIndex === -1) {
       console.log("is pushed")
       userData.push(tempData)
-      //    console.log(userData.findIndex(x => x.time === `${tempData.time}`))
-      //    console.log(userData)
       setData()
     }
     else {
       userData[tempIndex].task = descList[event.target.dataset.btnindex].value
-      // console.log(userData)
       setData()
     }
   }
 
 })
 
-/** Query data from  */
 
-/** Store task and time into client-side storage */
 let setData = () => {
   localStorage.setItem("data", JSON.stringify(userData))
 }
 
-/** Check and get high score from client-side storage */
+
 const getData = () => {
   if (JSON.parse(localStorage.getItem('data')) != null) { return JSON.parse(localStorage.getItem('data')) }
   else {
@@ -79,7 +68,6 @@ for (let i = 0; i < 24; i++) {
     descList[i].value = userData[tempIndex].task
 }
 
-// Date
 document.getElementById("currentDay").textContent = `${Date().slice(0, 33)}`
 setInterval(function () {
 
@@ -87,10 +75,8 @@ setInterval(function () {
   check()
 }, 1000)
 
-// Check and change color
 let check = () => {
   let moment = Date().slice(16, 18)
-  // console.log(moment)
   for (let i = 0; i < 24; i++) {
     if (parseInt(moment) > parseInt(hourList[i].textContent.slice(0, 3).replace(/:/g, ""))) { descList[i].setAttribute("class", "past") }
 
